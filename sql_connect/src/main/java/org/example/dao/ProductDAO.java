@@ -4,7 +4,10 @@ import org.example.config.Db;
 import org.example.entity.Product;
 
 import java.math.BigDecimal;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,12 +54,13 @@ public class ProductDAO {
         }
     }
 
-    public void delete(int productId) throws SQLException {
+    public boolean delete(int productId) throws SQLException {
         String sql = "DELETE FROM e_commerce WHERE product_id=?";
         try (Connection con = Db.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, productId);
-            ps.executeUpdate();
+            int affected = ps.executeUpdate();
+            return affected > 0;
         }
     }
 }

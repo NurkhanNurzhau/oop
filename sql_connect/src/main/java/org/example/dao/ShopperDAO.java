@@ -3,7 +3,10 @@ package org.example.dao;
 import org.example.config.Db;
 import org.example.entity.Shopper;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,12 +53,13 @@ public class ShopperDAO {
         }
     }
 
-    public void delete(int shopperId) throws SQLException {
+    public boolean delete(int shopperId) throws SQLException {
         String sql = "DELETE FROM shopper WHERE shopper_id=?";
         try (Connection con = Db.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, shopperId);
-            ps.executeUpdate();
+            int affected = ps.executeUpdate();
+            return affected > 0;
         }
     }
 }
