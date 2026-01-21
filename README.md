@@ -20,6 +20,3 @@ The project simulates a simplified **e-commerce system**, where:
 - SQL (PostgreSQL)
 - Maven project structure
 
----
-
-## 🗂 Project Structure
